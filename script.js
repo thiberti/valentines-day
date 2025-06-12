@@ -1,4 +1,26 @@
-const musica = document.getElementById("musica-fundo");
+let musicaTocando = false;
+
+const audio = document.getElementById("musica-fundo");
+const musicas = [
+  "audios/musica1.mp3",
+  "audios/musica2.mp3",
+  "audios/musica3.mp3",
+  "audios/musica4.mp3",
+  "audios/musica5.mp3"
+];
+
+// Toca uma música aleatória ao iniciar
+function tocarMusicaAleatoria() {
+  if (!musicaTocando) {
+    const aleatoria = musicas[Math.floor(Math.random() * musicas.length)];
+    audio.src = aleatoria;
+    audio.play().catch((e) => {
+      console.warn("Erro ao tentar tocar a música:", e);
+    });
+    musicaTocando = true;
+  }
+}
+
 
 const surpresas = [
   { tipo: 'imagem', src: 'imagens/1.jpg', frase: 'Ihihi, lembra dessa foto? Foi aqui que tudo começou!😁 \n Nesse dia a gente meio que tinha combinado que seria só um rolê legal e sem compromisso (HAHA até parece que eu não te queria (Ps.: Uma gatinha dessas😻))' },
@@ -20,10 +42,7 @@ const surpresas = [
 let index = 0;
 
 function mostrarConteudo() {
-  if (musica && musica.paused) {
-    musica.play().catch(() => { });
-  }
-
+  tocarMusicaAleatoria(); // isso deve vir antes
   const div = document.getElementById("conteudo");
 
   if (index < surpresas.length) {
@@ -46,7 +65,7 @@ function mostrarConteudo() {
         </div>
       `;
 
-      digitarTexto(item.frase, "frase-digitada", 30);
+      digitarTexto(item.frase, "frase-digitada", 40);
     }
 
     index++;
