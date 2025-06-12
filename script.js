@@ -117,7 +117,18 @@ function interagirComBiscoito() {
 
 document.addEventListener("DOMContentLoaded", () => {
   const botao = document.getElementById("botao-surpresa");
+
+  // 🔓 Desbloqueia o áudio no primeiro clique em qualquer lugar da tela
+  function desbloquearAudio() {
+    tocarMusicaAleatoria();
+    document.removeEventListener("click", desbloquearAudio); // só executa uma vez
+  }
+
+  document.addEventListener("click", desbloquearAudio);
+
+  // ✅ Garante que o botão funcione normalmente
   botao.addEventListener("click", () => {
     mostrarConteudo();
   });
 });
+
