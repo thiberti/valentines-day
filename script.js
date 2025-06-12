@@ -115,3 +115,9 @@ function interagirComBiscoito() {
   }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const botao = document.getElementById("botao-surpresa");
+  botao.addEventListener("click", () => {
+    mostrarConteudo();
+  });
+});
