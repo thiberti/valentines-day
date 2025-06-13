@@ -1,3 +1,4 @@
+let digitando = false;
 let musicaTocando = false;
 
 const audio = document.getElementById("musica-fundo");
@@ -42,7 +43,8 @@ const surpresas = [
 let index = 0;
 
 function mostrarConteudo() {
-  tocarMusicaAleatoria(); // isso deve vir antes
+  if (digitando) return; // impede avanço durante digitação
+  tocarMusicaAleatoria();
   const div = document.getElementById("conteudo");
 
   if (index < surpresas.length) {
@@ -77,15 +79,20 @@ function mostrarConteudo() {
 function digitarTexto(texto, elementoId, velocidade) {
   const el = document.getElementById(elementoId);
   let i = 0;
+  digitando = true;
+  el.innerHTML = ''; // limpa o texto anterior
+
   const intervalo = setInterval(() => {
     if (i < texto.length) {
       el.innerHTML += texto[i] === '\n' ? '<br>' : texto[i];
       i++;
     } else {
       clearInterval(intervalo);
+      digitando = false;
     }
   }, velocidade);
 }
+
 
 let estadoBiscoito = 0;
 
@@ -131,4 +138,3 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarConteudo();
   });
 });
-
